@@ -10,6 +10,8 @@
 <link rel="stylesheet" href="../header.css">
   <script type="importmap">{"imports":{"three":"./vendor/three.module.min.js"}}</script>
   <script type="module" src="viewer.js"></script>
+  <link rel="stylesheet" href="assembly.css">
+  <script type="module" src="assembly-view.js"></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to parts</a>
@@ -28,7 +30,7 @@
   <main id="main">
     <h1>Parts gallery</h1>
     <p class="lead">See what goes inside the ball, what stays in the charging stand and what the player sees on their phone. Open any hardware photo for a closer look. The coil photos show Qi examples. For the tutorial, buy the <a href="https://www.dfrobot.com/product-1284.html">matched DFR0362 pair shown by DFRobot</a>.</p>
-    <a href="#models">Jump to the 3D models</a>
+    <a href="#models">Jump to the 3D parts</a> · <a href="#prototype">Explore the foam ball</a>
     <div class="cards gallery">
       <article id="controller">
         <a class="photo white" href="images/controller.webp" aria-label="Enlarge the XIAO ESP32-C3 photo"><img src="images/controller.webp" alt="Front of a Seeed XIAO ESP32-C3 with USB-C socket at the top and contact pads running down each side." width="500" height="636"></a>
@@ -134,6 +136,60 @@
       </div>
       <details class="model-credits"><summary>Model credits</summary><p>Transmitter surface artwork adapted from Seeed Studio’s <a href="https://wiki.seeedstudio.com/Qi_Wireless_Charger_Transmitter/">Qi transmitter v1.0 board files</a> under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. MicroLipo geometry and surface artwork adapted from <a href="https://github.com/adafruit/Adafruit_CAD_Parts/tree/main/1304%20MicroLipo%20Charger">Adafruit CAD Parts</a> under the MIT licence. The viewer uses Three.js r180.</p></details>
     </section>
+    <section class="assembly" id="prototype" aria-labelledby="prototype-title">
+      <header class="assembly-heading">
+        <div><p class="assembly-kicker">100 mm foam prototype</p><h2 id="prototype-title">Inside the ball<span>.</span></h2></div>
+        <p>Slide the layers together to see how the ball fits. Hover or tap a part to trace its connections.</p>
+      </header>
+      <div class="assembly-bench">
+        <div class="assembly-viewport" id="assembly-stage">
+          <img class="assembly-poster" src="images/foam-assembly.webp" alt="Exploded prototype showing two marked foam shell halves, the card carrier, sensors, battery and external charging dock." loading="lazy">
+          <div class="assembly-marker" hidden aria-hidden="true"></div>
+        </div>
+        <aside class="assembly-inspector" aria-label="Part information">
+          <label for="assembly-part">Inspect a part</label>
+          <select id="assembly-part" aria-controls="assembly-description">
+            <option value="shell-left">Foam shell · left half</option>
+            <option value="shell-right">Foam shell · right half</option>
+            <option value="seam">Removable tape seam</option>
+            <option value="carrier">Card carrier &amp; EVA pads</option>
+            <option value="controller">Bluetooth controller</option>
+            <option value="motion">Motion sensor</option>
+            <option value="piezo">Piezo contact disc</option>
+            <option value="battery">Rechargeable cell</option>
+            <option value="receiver">Wireless receiver</option>
+            <option value="dock">External charging dock</option>
+            <option value="harness">Wiring harness</option>
+          </select>
+          <div id="assembly-description">
+            <h3 id="assembly-name">Polystyrene hemisphere</h3>
+            <p id="assembly-purpose">Half of a hollowed craft sphere forms a removable cover for inspecting the electronics after a hand tap.</p>
+            <h4>Connects to</h4><p id="assembly-connection">The two halves meet at the equator. Removable tape holds the seam closed around the card carrier.</p>
+          </div>
+        </aside>
+      </div>
+      <div class="assembly-controls">
+        <div class="assembly-slider"><label for="assembly-spread">Layer spacing</label><div><span>Closed</span><input type="range" id="assembly-spread" min="0" max="100" value="100" disabled><span>Exploded</span></div></div>
+        <button type="button" id="assembly-reset" disabled>Reset view</button>
+      </div>
+      <p class="assembly-help" id="assembly-help">Drag to rotate. Scroll or pinch to zoom. Use the part list to inspect any hidden layer.</p>
+    </section>
+<section id="foam-materials" aria-labelledby="foam-materials-heading">
+  <h2 id="foam-materials-heading">Make the 100 mm shell by hand</h2>
+  <p><strong>NZ$7.53 for the materials before delivery</strong> if you buy the ball, the full foam pack and the tape roll below. With spare EVA, tape and a shipping carton at home, the ball alone is $2.35. Prices checked 24 November 2026.</p>
+  <ul>
+    <li><strong>Shell · $2.35.</strong> One solid 100 mm polystyrene craft ball, item 263100. Golding does not display a freight price for the single ball. Spotlight also lists a pair of 100 mm balls at a regular $10 per pack. <a href="https://www.goldingcraft.com/polystyrene.htm">Golding Craft</a> · <a href="https://www.spotlightstores.com/en-nz/p/shamrock-craft-deco-foam-balls-2-pieces/BP80224949-white">Spotlight two-pack</a></li>
+    <li><strong>Carrier and pads · $2.00.</strong> Reuse a flat panel from a corrugated shipping carton ($0). A ten-pack of A4 EVA craft sheets costs $2. Cut two strips about 42 × 5 mm and layer to 2–3 mm thick. Look Sharp quotes $7 North Island or $14 South Island delivery. <a href="https://www.looksharpstore.co.nz/product/mixed-colour-a4-eva-foam-sheets-10pk/">Look Sharp EVA sheets</a></li>
+    <li><strong>Removable seam · $3.18.</strong> One 18 mm × 50 m roll of paper masking tape. Allow about 34 cm for one wrap with overlap. Check local store stock for pickup. Mitre 10 quotes $8 metro or $13.50 rural for standard parcels under 25 kg. <a href="https://www.mitre10.co.nz/shop/pal-tapemaster-general-purpose-masking-tape-18mmx50m/p/377967">Mitre 10 PAL tape</a></li>
+  </ul>
+  <h3>Cut and fit the layers</h3>
+  <ol>
+    <li>Mark the equator with a paper strip and split the empty sphere with a fine serrated blade. Scoop each half gradually toward an 88 mm inner diameter, leaving roughly 6 mm of wall. Do all carving with the electronics out.</li>
+    <li>Cut an 80 mm disc from roughly 2.8 mm corrugated card. Add three pairs of small scrap-EVA ledges around the rim to centre the disc, leaving its wiring notch clear. Fit the two EVA strips on the board side. Carve a shallow flat seat for the 43 mm receiver at the charging face and dry-fit it against the dock.</li>
+    <li>Test the fit with a dummy load first. Align the two halves and wind the tape once around the seam. Fold the last centimetre back on itself to make a pull tab. Peel it open to adjust the fit. Use this shell for bench fit and gentle hand-motion tests.</li>
+  </ol>
+  <p>For powered bench tests and the piezo input-protection circuit, see the <a href="../tutorial/#wiring">wiring tutorial</a>.</p>
+</section>
   </main>
   <footer><a href="../">Juggles project</a><a href="../parts/">NZ parts &amp; pricing</a></footer>
 </body>
