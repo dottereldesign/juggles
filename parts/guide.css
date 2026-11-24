@@ -27,13 +27,7 @@ button { font: inherit; cursor: pointer; }
 .shell { width: min(91%, 82rem); margin-inline: auto; }
 .brand { font-weight: 850; font-size: 1.85rem; letter-spacing: -.09em; line-height: 1; text-decoration: none; }
 .brand b { color: var(--lime); }
-.mast { background: #101310; color: white; border-bottom: 1px solid #394039; }
-.mast .shell, .mast nav, footer .shell { display: flex; align-items: center; justify-content: space-between; }
-.mast .shell { min-height: 4.3rem; gap: 1rem; }
-.mast nav { gap: clamp(1rem, 4vw, 3.25rem); font-size: .94rem; }
-.mast nav a { text-decoration: none; }
-.mast nav a:hover { text-decoration: underline; }
-.mast [aria-current] { color: var(--lime); font-weight: 650; }
+footer .shell { display: flex; align-items: center; justify-content: space-between; }
 .skip { position: absolute; top: -8rem; z-index: 4; padding: .75rem; background: var(--lime); color: var(--ink); }
 .skip:focus { top: .5rem; }
 .hero { background: #141814; color: #f9faf3; position: relative; isolation: isolate; overflow: hidden; }
@@ -121,8 +115,6 @@ footer .shell { min-height: 5rem; gap: 1rem; font-size: .9rem; }
   .offer-count { font-size: .75rem; }
 }
 @media (max-width: 690px) {
-  .mast .shell { min-height: 3.55rem; }
-  .mast nav { gap: .9rem; font-size: .88rem; }
   .hero figure { position: relative; inset: auto; aspect-ratio: 2.55; z-index: 0; margin-top: -.5rem; }
   .hero figure img { object-position: center 53%; }
   .hero figure::after { background: linear-gradient(180deg,#141814,transparent 21%); }
@@ -151,4 +143,3 @@ footer .shell { min-height: 5rem; gap: 1rem; font-size: .9rem; }
   .hero figure, .stamp { display: none; }
   .aside { margin-block: 1rem; }
 }
-@media(max-width:760px){.mast .shell{align-items:flex-start;flex-direction:column;gap:.8rem;padding-block:.9rem}.mast nav{flex-wrap:wrap;gap:.5rem .9rem}}

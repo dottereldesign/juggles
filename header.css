@@ -1,0 +1,39 @@
+/* Shared navigation for every Juggles page, including the concept gallery. */
+html { scrollbar-gutter: stable; }
+body > .project-header {
+  box-sizing: border-box;
+  display: block;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-bottom: 1px solid #394039;
+  background: #121712;
+  color: #f6faf3;
+  font: 400 1rem/1.5 system-ui, sans-serif;
+}
+.project-header .header-inner {
+  width: min(91%, 82rem);
+  min-height: 4.25rem;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+}
+.project-header .wordmark {
+  color: #fff;
+  font: 850 1.85rem/1 system-ui, sans-serif;
+  letter-spacing: -.09em;
+  text-decoration: none;
+}
+.project-header .wordmark b { color: #c8f568; font-weight: inherit; }
+.project-header nav { display: flex; flex-wrap: wrap; gap: .4rem clamp(.9rem, 2.3vw, 2rem); align-items: center; }
+.project-header nav a { color: #f4f6f1; font: 600 .9375rem/1.5 system-ui,sans-serif; padding: .35rem 0; text-decoration: none; }
+.project-header nav a[aria-current="page"] { color: #c8f568; }
+.project-header nav a:hover { text-decoration: underline; text-underline-offset: .25em; }
+.project-header a:focus-visible { outline: 2px solid #c8f568; outline-offset: 3px; }
+@media(max-width: 720px) {
+  .project-header .header-inner { flex-direction: column; align-items: flex-start; gap: .5rem; padding-block: .9rem; }
+  .project-header nav { gap: .15rem .92rem; }
+  .project-header nav a { font-size: .875rem; }
+}

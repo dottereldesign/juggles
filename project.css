@@ -20,18 +20,14 @@ body {margin: 0;}
 a {color: #315d26; text-underline-offset: .2em;}
 a:hover {text-decoration-thickness: .14em;}
 :focus-visible {outline: 3px solid #658800; outline-offset: 3px;}
-header, footer {background: #121712; color: white;}
-body > header, header .shell, footer {
+footer {background: #121712; color: white;}
+footer {
   display: flex; gap: 1rem 2rem; flex-wrap: wrap; align-items: center; justify-content: space-between;
   padding: 1.15rem max(4.5vw, calc((100vw - 82rem)/2));
 }
-header a, footer a {color: inherit;}
+footer a {color: inherit;}
 .brand {color: white; font-size: 1.85rem; font-weight: 850; letter-spacing: -.09em; line-height: 1; text-decoration: none;}
 .brand b {color: var(--lime);}
-header nav {display: flex; flex-wrap: wrap; align-items: center; gap: .5rem clamp(.8rem,2.4vw,2rem);}
-header nav a {font-size: .95rem; font-weight: 550; text-decoration: none;}
-header nav a:is(:hover,:focus-visible) {text-decoration: underline;}
-header nav a[aria-current=page] {color: var(--lime);}
 main {width: min(91%,76rem); margin:auto; padding: clamp(2rem,5vw,5rem) 0;}
 h1, h2, h3 {line-height: 1.1; text-wrap: balance;}
 h1, h2 {font-family: "Barlow Condensed","Arial Narrow",sans-serif; font-style: italic; text-transform: uppercase;}
@@ -55,7 +51,6 @@ pre {overflow: auto; background:#e8ede4; padding: 1rem; border-radius: .3rem;}
 .skip {position:absolute;left:-100vw;}
 .skip:focus {left:1rem;top:1rem;z-index:4;background:white;padding: .6rem;}
 @media(max-width:700px){
-  body > header {display:grid;gap:.8rem;} header nav a {font-size:.88rem;}
   th, td {padding:.4rem;}
 }
 

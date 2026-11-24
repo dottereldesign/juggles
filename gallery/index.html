@@ -7,22 +7,28 @@
   <meta name="description" content="See the boards, sensors, battery and charging coils for a Bluetooth football juggling counter.">
   <link rel="stylesheet" href="../project.css">
   <link rel="stylesheet" href="gallery.css">
+<link rel="stylesheet" href="../header.css">
+  <script type="importmap">{"imports":{"three":"./vendor/three.module.min.js"}}</script>
+  <script type="module" src="viewer.js"></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to parts</a>
-  <header>
-    <a class="brand" href="../" aria-label="Juggles home">juggles<b>.</b></a>
-    <nav aria-label="Project navigation">
-      <a href="../">Concepts</a>
-      <a href="../parts/">NZ prices</a>
-      <a href="./" aria-current="page">Parts gallery</a>
-      <a href="../tutorial/">Build tutorial</a>
-      <a href="../research/">Research</a>
-    </nav>
+  <header class="project-header">
+    <div class="header-inner">
+      <a class="wordmark" href="../" aria-label="Juggles home">juggles<b>.</b></a>
+      <nav aria-label="Project navigation">
+        <a href="../">Concepts</a>
+        <a href="../parts/">NZ prices</a>
+        <a href="../gallery/" aria-current="page">Parts gallery</a>
+        <a href="../tutorial/">Build tutorial</a>
+        <a href="../research/">Research</a>
+      </nav>
+    </div>
   </header>
   <main id="main">
     <h1>Parts gallery</h1>
     <p class="lead">See what goes inside the ball, what stays in the charging stand and what the player sees on their phone. Open any hardware photo for a closer look. The coil photos show Qi examples. For the tutorial, buy the <a href="https://www.dfrobot.com/product-1284.html">matched DFR0362 pair shown by DFRobot</a>.</p>
+    <a href="#models">Jump to the 3D models</a>
     <div class="cards gallery">
       <article id="controller">
         <a class="photo white" href="images/controller.webp" aria-label="Enlarge the XIAO ESP32-C3 photo"><img src="images/controller.webp" alt="Front of a Seeed XIAO ESP32-C3 with USB-C socket at the top and contact pads running down each side." width="500" height="636"></a>
@@ -99,6 +105,35 @@
       </article>
     </div>
     <p class="reuse">The photographs are resized WebP copies. Each retains its credited licence.</p>
+    <section class="model-lab" id="models" aria-labelledby="models-title">
+      <h2 id="models-title">Explore the parts in 3D</h2>
+      <p>Select a part, then drag to rotate or pinch to zoom. These reference models show the gallery examples. Dimensions and hidden details can vary between board revisions.</p>
+      <div class="model-picker" role="group" aria-label="Choose a 3D part">
+          <button type="button" data-model="controller" data-title="Seeed XIAO ESP32C3" data-detail="Look for the USB-C opening, two rows of edge contacts and the antenna connector." aria-pressed="true"><img src="images/controller.webp" alt="" loading="lazy"><span>Controller</span></button>
+          <button type="button" data-model="motion" data-title="GY-521 · MPU-6050" data-detail="The accelerometer and gyroscope share one chip. The tutorial uses a BMI160 breakout with a different board layout." aria-pressed="false"><img src="images/motion.webp" alt="" loading="lazy"><span>Motion sensor</span></button>
+          <button type="button" data-model="piezo" data-title="Wired piezo disc" data-detail="Rotate the disc edge-on to see how the ceramic layer sits on the thin brass backing." aria-pressed="false"><img src="images/piezo.webp" alt="" loading="lazy"><span>Piezo disc</span></button>
+          <button type="button" data-model="battery" data-title="500 mAh pouch cell" data-detail="Follow the leads from the foil pouch to the two-pin connector. Packaging varies by cell and supplier." aria-pressed="false"><img src="images/battery.webp" alt="" loading="lazy"><span>Battery</span></button>
+          <button type="button" data-model="transmitter" data-title="Qi transmitter &amp; coil" data-detail="The transmitter stays in the dock. Inspect the winding and its connection to the driver board." aria-pressed="false"><img src="images/transmitter.webp" alt="" loading="lazy"><span>Transmitter</span></button>
+          <button type="button" data-model="receiver" data-title="Qi receiver &amp; coil" data-detail="The flat receiver sits near the ball’s shell. The tutorial uses a matched DFRobot transmitter and receiver pair." aria-pressed="false"><img src="images/receiver.webp" alt="" loading="lazy"><span>Receiver</span></button>
+          <button type="button" data-model="charger" data-title="Adafruit MicroLipo V2" data-detail="This separate charger is optional. The XIAO used in the tutorial already includes a single-cell charger." aria-pressed="false"><img src="images/charger.webp" alt="" loading="lazy"><span>Charger</span></button>
+      </div>
+      <div class="model-workbench">
+        <div class="model-stage" id="model-stage">
+          <img class="model-photo" id="model-photo" src="images/controller.webp" alt="Seeed XIAO ESP32C3 reference photo" loading="lazy">
+        </div>
+        <div class="model-caption">
+          <div aria-live="polite"><h3 id="model-title">Seeed XIAO ESP32C3</h3><p id="model-detail">Look for the USB-C opening, two rows of edge contacts and the antenna connector.</p></div>
+          <p id="model-accuracy"></p>
+          <p class="model-links"><a id="model-reference" href="#controller">Reference photo</a><a id="model-source" href="https://wiki.seeedstudio.com/XIAO_ESP32C3_Getting_Started/">Design reference</a></p>
+          <div class="model-tools" role="group" aria-label="Change model view" hidden>
+            <button type="button" data-view="top">Top</button><button type="button" data-view="bottom">Underside</button><button type="button" data-view="reset">Reset view</button>
+          </div>
+          <p class="model-help" id="model-help" role="status">Loading 3D view…</p>
+          <noscript><p>Enable JavaScript to rotate the models.</p></noscript>
+        </div>
+      </div>
+      <details class="model-credits"><summary>Model credits</summary><p>Transmitter surface artwork adapted from Seeed Studio’s <a href="https://wiki.seeedstudio.com/Qi_Wireless_Charger_Transmitter/">Qi transmitter v1.0 board files</a> under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. MicroLipo geometry and surface artwork adapted from <a href="https://github.com/adafruit/Adafruit_CAD_Parts/tree/main/1304%20MicroLipo%20Charger">Adafruit CAD Parts</a> under the MIT licence. The viewer uses Three.js r180.</p></details>
+    </section>
   </main>
   <footer><a href="../">Juggles project</a><a href="../parts/">NZ parts &amp; pricing</a></footer>
 </body>
