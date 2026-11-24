@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Compare football juggling counters that use ball sensors, boot sensors, a camera or a microphone, and see how Juggles could test touch accuracy.">
+  <title>Juggling counter research · Juggles</title>
+  <link rel="stylesheet" href="../project.css">
+</head>
+<body>
+  <header>
+    <a class="brand" href="../">juggles.</a>
+    <nav aria-label="Project navigation"><a href="../">Concepts</a><a href="../parts/">NZ prices</a><a href="../gallery/">Parts gallery</a><a href="../tutorial/">Build tutorial</a><a href="../research/" aria-current="page">Research</a></nav>
+  </header>
+  <main>
+    <h1>Juggling counter research</h1>
+    <p>How do you tell a kick from a bounce? Existing counters listen through a phone microphone, watch with a camera, or measure motion at the ball or the boot.</p>
+
+    <section aria-labelledby="hardware">
+      <h2 id="hardware">Balls and boot sensors</h2>
+      <p>Prices were checked on <time datetime="2026-11-24">24 November 2026</time> in each seller’s currency. NZ delivery, tax and the total landed cost still need a quote.</p>
+      <div class="cards">
+        <article>
+          <h3>INSAIT JOY / Kaizen Smart Football</h3>
+          <p><strong>US$129</strong></p>
+          <p>Motion sensors inside the ball send touches and drops to a phone over Bluetooth. The ball comes in sizes 4 and 5, charges wirelessly and runs for up to seven hours per charge. The app works without filming or a subscription.</p>
+          <p><a href="https://kaizensports.io/products/smart-football">Kaizen product listing</a> · <a href="https://insaitjoy.com/pages/smart-football-support">INSAIT JOY support</a></p>
+        </article>
+        <article>
+          <h3>Smart Ball Counter Football</h3>
+          <p><strong>€30</strong></p>
+          <p>This ball lights up on contact and counts aloud up to 100 keepy-ups. The removable counter runs on two LR44 batteries and works without a phone.</p>
+          <p><a href="https://www.oneills.com/int_en/smart-ball-soccer-counter-football.html">O’Neills product listing</a></p>
+        </article>
+        <article>
+          <h3>Playermaker 2.0</h3>
+          <p><strong>US$199</strong></p>
+          <p>Sensors on both boots sample motion 1,000 times a second to track touches and foot movement with an ordinary ball. The product documentation leaves open whether it counts consecutive juggles.</p>
+          <p><a href="https://www.playermaker.com/products/?tab=playermaker2.0">Playermaker product listing</a> · <a href="https://www.playermaker.com/pages/how-it-works">How the sensors work</a></p>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="apps">
+      <h2 id="apps">Apps for an ordinary football</h2>
+      <div class="cards">
+        <article>
+          <h3>UpKick</h3>
+          <p>The iPhone camera tracks the player’s whole body and classifies touches. The app is free to download with in-app purchases.</p>
+          <p><a href="https://apps.apple.com/us/app/soccer-ai-coach-upkick/id6819873630">UpKick on the App Store</a></p>
+        </article>
+        <article>
+          <h3>Footy</h3>
+          <p>The iPhone camera counts touches. Players can take daily challenges and compare scores on Game Center. The app is free to download with in-app purchases.</p>
+          <p><a href="https://apps.apple.com/us/app/footy-soccer-training/id6820357514">Footy on the App Store</a></p>
+        </article>
+        <article>
+          <h3>Keep Up AI</h3>
+          <p>The camera follows ball movement and displays a live count. One test for football is whether a ground bounce ends the streak.</p>
+          <p><a href="https://apps.apple.com/us/app/keep-up-ai/id6745725619">Keep Up AI on the App Store</a></p>
+        </article>
+        <article>
+          <h3>Spatrian</h3>
+          <p>This free mobile-browser counter listens with the microphone and saves a personal best. Its developer says audio stays on the device.</p>
+          <p><a href="https://spatrian.com/juggle-counter">Spatrian juggle counter</a></p>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="tests">
+      <h2 id="tests">What to test in Juggles</h2>
+      <ol>
+        <li><strong>Run the same routine for each counting method.</strong> Track a short session by hand, including a ground bounce and a deliberate drop. Compare the camera, microphone and ball-sensor results for missed touches, double counts and resets before using the scores for a leaderboard.</li>
+        <li><strong>Compare a kick with a bounce.</strong> The CodeCell C3 combines an ESP32-C3, Bluetooth and an inertial measurement unit. Record acceleration peaks and rotation, then test whether a piezo sensor adds a useful contact signal. A rechargeable battery and wireless coil are possible additions for an enclosed prototype. <a href="https://microbots.io/blogs/codecell/codecell-c3">Microbots board documentation</a></li>
+        <li><strong>Check access to live events.</strong> Kaizen’s ball pairs with the INSAIT JOY app. Before buying it for development, ask the manufacturer about a public API or SDK for touches and drops, and about NZ fulfilment. <a href="https://insaitjoy.com/pages/smart-football-support">Pairing and drill support</a></li>
+      </ol>
+    </section>
+
+    <section aria-labelledby="references">
+      <h2 id="references">Project references</h2>
+      <ul>
+        <li><a href="https://github.com/donsolo-khalifa/Kickups">Kickups on GitHub</a></li>
+        <li><a href="https://github.com/andruwik777/JuggleJs">JuggleJs on GitHub</a></li>
+        <li><a href="https://dribbleup.com/hp">Dribbleup</a> · <a href="https://www.bbb.org/us/ny/franklin-square/profile/sporting-goods-retail/dribbleup-inc-0121-177410/complaints">Dribbleup customer complaints on BBB</a></li>
+        <li><a href="https://kaizensports.io/pages/smart-football">Kaizen Sports Smart Football overview</a></li>
+      </ul>
+    </section>
+  </main>
+  <footer><a href="../">Juggles</a> · <a href="../parts/">New Zealand parts guide</a></footer>
+</body>
+</html>

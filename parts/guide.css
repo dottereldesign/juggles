@@ -151,3 +151,4 @@ footer .shell { min-height: 5rem; gap: 1rem; font-size: .9rem; }
   .hero figure, .stamp { display: none; }
   .aside { margin-block: 1rem; }
 }
+@media(max-width:760px){.mast .shell{align-items:flex-start;flex-direction:column;gap:.8rem;padding-block:.9rem}.mast nav{flex-wrap:wrap;gap:.5rem .9rem}}

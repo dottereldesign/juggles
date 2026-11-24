@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Build a smart football prototype · Juggles</title>
+  <meta name="description" content="Wire the Juggles prototype, record a tap, test Bluetooth and wireless charging, and plan how the electronics could fit inside a football.">
+  <link rel="stylesheet" href="../project.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to build tutorial</a>
+  <header>
+    <a class="brand" href="../" aria-label="Juggles home">juggles<b>.</b></a>
+    <nav aria-label="Project navigation"><a href="../">Concepts</a><a href="../parts/">NZ prices</a><a href="../gallery/">Parts gallery</a><a href="../tutorial/" aria-current="page">Build tutorial</a><a href="../research/">Research</a></nav>
+  </header>
+  <main id="main">
+    <p class="eyebrow">Prototype workshop</p>
+    <h1>Build a smart football</h1>
+    <p class="lead">Start with a tap on the workbench. Get the sensors to agree on that touch, send the count to a phone, then explore how the electronics could survive inside a ball.</p>
+    <p><a href="#wiring">Bench wiring</a> · <a href="#logger">Sensor check</a> · <a href="#counter">Touch counter</a> · <a href="#charging">Charging</a> · <a href="#placement">Ball layout</a></p>
+
+    <section aria-labelledby="prep">
+      <h2 id="prep">Set up the bench</h2>
+      <div class="cards">
+        <article><h3>Get the five main parts</h3>
+          <p>Use a Seeed XIAO ESP32C3, a 3.3 V-compatible BMI160 breakout, a wired piezo disc, the protected TAC 500 mAh cell, and the DFRobot DFR0362 transmitter and receiver pair. The XIAO has a single-cell charge controller. Leave the cell and the coils aside for the first test.</p>
+          <a href="../parts/#budget">See the NZ prototype budget</a>
+        </article>
+        <article><h3>Gather tools and small parts</h3>
+          <p>Use a breadboard, headers, jumper wire, multimeter, wire strippers, a soldering iron and solder. For mounting, gather flexible wire, insulating tape, heat-shrink and strain relief. A scope helps check short impact pulses.</p>
+          <p>For a bare piezo, set aside 1 MΩ and 100 kΩ resistors and two small-signal Schottky clamp diodes. If your IMU lacks pull-ups, add two 4.7 kΩ resistors. For charging, use a regulated 5 V supply sized for the transmitter, a separate power Schottky diode rated for the receiver current, and a mating lead for the protected battery.</p>
+        </article>
+        <article><h3>Start with a removable test surface</h3>
+          <p>Tape the piezo brass rim to a flexible test panel and secure the leads nearby. Fix the IMU firmly to the same panel. Hand taps should move both sensors together. Use a foam shell or an open, unpressurised model for the first fit check.</p>
+        </article>
+        <article><h3>Prepare the computer and phone</h3>
+          <p>On a computer, install Arduino IDE and the Espressif board package. Use a USB-C cable that carries data. On a Bluetooth Low Energy-capable phone, install nRF Connect for Mobile to view the first notifications. <a href="https://www.arduino.cc/en/software/">Arduino IDE</a> · <a href="https://www.nordicsemi.com/Products/Development-tools/nRF-Connect-for-mobile">nRF Connect</a></p>
+        </article>
+      </div>
+    </section>
+
+    <section id="wiring" aria-labelledby="wire-title">
+      <h2 id="wire-title">Wire the sensors</h2>
+      <p>Unplug USB while making connections. Attach the XIAO’s supplied antenna before the radio test. Read the labels on your particular BMI160 module. The following connections assume a breakout that accepts 3.3 V and exposes I²C.</p>
+      <table>
+        <thead><tr><th scope="col">XIAO pin</th><th scope="col">Connection</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">3V3</th><td>BMI160 3.3 V supply input. If the module exposes a separate VDDIO, follow its instructions for 3.3 V logic.</td></tr>
+          <tr><th scope="row">GND</th><td>BMI160 ground, piezo return and the signal circuit’s ground.</td></tr>
+          <tr><th scope="row">D4 / GPIO6</th><td>BMI160 SDA. On a combined SPI/I²C header this may be marked SDI.</td></tr>
+          <tr><th scope="row">D5 / GPIO7</th><td>BMI160 SCL, sometimes marked SCK. Keep both I²C pull-ups at 3.3 V. If the breakout has no pull-ups, add one 4.7 kΩ resistor from each line to 3V3.</td></tr>
+          <tr><th scope="row">D1 / A1 / GPIO3</th><td>Conditioned piezo signal, after the series resistor and clamps described below.</td></tr>
+        </tbody>
+      </table>
+      <p>If the module breaks out CSB and SDO without fixed straps, select I²C by tying CSB high to 3V3. SDO low selects address <code>0x68</code> and SDO high selects <code>0x69</code>. Follow the module’s existing jumper settings. <a href="https://wiki.seeedstudio.com/XIAO_ESP32C3_Getting_Started/">Seeed pin map</a> · <a href="https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bmi160-ds000.pdf">Bosch BMI160 datasheet</a></p>
+      <h3>Protect the analogue input</h3>
+      <p>A flexing piezo generates brief voltages of both polarities. For a bench circuit, connect the brass-side lead to ground, put 1 MΩ across the two piezo leads, then run the other lead through 100 kΩ to A1. At A1, place one Schottky diode with its anode at ground and striped cathode at A1. Place the other with its anode at A1 and striped cathode at 3V3. Adjust the impact fixture or attenuation if light taps saturate the ADC. Use gentle taps with the circuit powered and verify the clamped waveform before increasing force. <a href="https://learn.sparkfun.com/tutorials/piezo-vibration-sensor-hookup-guide">SparkFun’s guide to piezo input conditioning</a></p>
+    </section>
+
+    <section id="logger" aria-labelledby="logger-title">
+      <h2 id="logger-title">Read your first tap</h2>
+      <p>In Arduino IDE install Espressif’s <code>esp32</code> board package, select <code>XIAO_ESP32C3</code> and its USB port, and enable USB CDC On Boot if the Tools menu offers it. Upload this bring-up sketch and open Serial Monitor at 115200 baud. It uses Arduino’s bundled <code>Wire</code> library. Keep the computer attached for this step. <a href="https://wiki.seeedstudio.com/XIAO_ESP32C3_Getting_Started/">Seeed board setup</a></p>
+      <p><a href="JugglesSensorCheck/JugglesSensorCheck.ino" download>Download the Arduino sensor-check sketch (.ino)</a>. Open it in Arduino IDE and accept the offer to move it into a matching sketch folder if prompted.</p>
+      <details><summary><strong>Read the sketch in your browser</strong></summary>
+        <pre><code>#include &lt;Arduino.h&gt;
+#include &lt;Wire.h&gt;
+
+uint8_t imuAddress = 0;
+int piezoPeak = 0;
+uint32_t lastSample = 0;
+
+bool readRegisters(uint8_t address, uint8_t reg, uint8_t *bytes, size_t count) {
+  Wire.beginTransmission(address);
+  Wire.write(reg);
+  if (Wire.endTransmission(false) != 0) return false;
+  if (Wire.requestFrom(address, count) != count) return false;
+  for (size_t i = 0; i &lt; count; ++i) bytes[i] = Wire.read();
+  return true;
+}
+
+bool writeRegister(uint8_t reg, uint8_t value) {
+  Wire.beginTransmission(imuAddress);
+  Wire.write(reg);
+  Wire.write(value);
+  return Wire.endTransmission() == 0;
+}
+
+void stopWith(const char *message) {
+  for (;;) {
+    Serial.println(message);
+    delay(2000);
+  }
+}
+
+void setup() {
+  Serial.begin(115200);
+  delay(1000);
+  Wire.begin(D4, D5);
+  Wire.setClock(400000);
+  for (uint8_t address = 0x68; address &lt;= 0x69; ++address) {
+    uint8_t id;
+    if (readRegisters(address, 0x00, &amp;id, 1) &amp;&amp; id == 0xD1) {
+      imuAddress = address;
+      break;
+    }
+  }
+  if (!imuAddress) stopWith("No BMI160 at 0x68 or 0x69. Check power and I2C.");
+  if (!writeRegister(0x7E, 0x11)) stopWith("Accelerometer startup failed.");
+  delay(10);
+  if (!writeRegister(0x7E, 0x15)) stopWith("Gyroscope startup failed.");
+  delay(100);
+  // 100 Hz, normal filtering, +/-16 g and +/-2000 degrees/sec.
+  if (!writeRegister(0x40, 0x28) || !writeRegister(0x41, 0x0C) ||
+      !writeRegister(0x42, 0x28) || !writeRegister(0x43, 0x00)) {
+    stopWith("Sensor configuration failed.");
+  }
+  Serial.println("ms,gx_raw,gy_raw,gz_raw,ax_raw,ay_raw,az_raw,piezo_peak");
+}
+
+void loop() {
+  int reading = analogRead(A1);
+  if (reading &gt; piezoPeak) piezoPeak = reading;
+  uint32_t now = millis();
+  if (now - lastSample &lt; 10) return;
+  lastSample = now;
+  uint8_t data[12];
+  if (!readRegisters(imuAddress, 0x0C, data, sizeof(data))) {
+    stopWith("IMU read failed. Check connections and reset.");
+  }
+  Serial.print(now);
+  for (size_t i = 0; i &lt; sizeof(data); i += 2) {
+    int16_t axis = (int16_t)(data[i] | ((uint16_t)data[i + 1] &lt;&lt; 8));
+    Serial.print(',');
+    Serial.print(axis);
+  }
+  Serial.print(',');
+  Serial.println(piezoPeak);
+  piezoPeak = 0;
+}</code></pre>
+      </details>
+      <p><strong>What to look for.</strong> At rest, one accelerometer axis reads about ±2048 raw counts when vertical. Rotate the panel to move gravity onto a different axis. Turn it by hand and watch the gyro change, then settle. A gentle tap should produce a piezo peak alongside an acceleration change. If the piezo stays flat, inspect its mounting and diode orientation. At the configured ranges, divide acceleration by 2048 for g and angular speed by 16.4 for degrees per second. <a href="https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bmi160-ds000.pdf">Bosch register map and scale factors</a></p>
+    </section>
+
+    <section id="counter" aria-labelledby="counter-title">
+      <h2 id="counter-title">Turn taps into a count</h2>
+      <ol>
+        <li><strong>Label several short recordings.</strong> Capture quiet handling, ten separated taps, fast paired taps and a deliberate knock against a padded surface. Speak or film the reference count. Keep the same sensor mounting between recordings.</li>
+        <li><strong>Find one event per touch.</strong> Plot the piezo peak and acceleration magnitude, calculated as √(ax² + ay² + az²). Pick a piezo threshold above the quiet trace and look for an acceleration change close in time. Enter a held state after a match. Re-arm when the piezo falls below a lower threshold and the ringing has died away. Tune the timing against the fastest real pair of taps.</li>
+        <li><strong>Send a running total.</strong> First run Espressif’s BLE Notify example and subscribe from nRF Connect on a phone. In your counting sketch, publish a read/notify characteristic containing the total as a 32-bit unsigned integer. Choose and record a service UUID, characteristic UUID and byte order for both ends. Set the value after each accepted event, advertise again on disconnect, and have the phone read the latest total after reconnecting. <a href="https://github.com/espressif/arduino-esp32/blob/master/libraries/BLE/examples/Notify/Notify.ino">Espressif Notify example</a> · <a href="https://www.nordicsemi.com/Products/Development-tools/nRF-Connect-for-mobile">nRF Connect for Mobile</a></li>
+        <li><strong>Build the app around a session.</strong> Display the latest total, save each finished session with its date, and derive personal bests from saved sessions. Use an explicit end button until recorded trials can distinguish a foot touch from a ground bounce. A shared leaderboard needs an online score store and a session ID to avoid duplicate submissions. A web version can subscribe via Web Bluetooth on supporting browsers over HTTPS. Check browser support on the target phone before choosing the web route. <a href="https://developer.chrome.com/docs/capabilities/bluetooth">Chrome Web Bluetooth guide</a></li>
+      </ol>
+      <p><strong>Check the result.</strong> Use a fresh recording after tuning. Count missed touches and extra detections separately. A missed tap and a double count can cancel each other out in the final total. Disconnect the phone for several taps, reconnect, and check that the displayed total catches up.</p>
+    </section>
+
+    <section id="charging" aria-labelledby="charge-title">
+      <h2 id="charge-title">Add battery and charging</h2>
+      <ol>
+        <li><strong>Check the cell.</strong> Use a protected 3.7 V nominal, 4.2 V full-charge pack. The specified TAC pack allows 500 mA maximum charge current. The XIAO’s listed fast-charge current is 380 mA. Inspect the cell, disconnect all power and verify connector polarity with a meter before attaching a mating lead to the XIAO BAT+ and BAT− pads. Solder the empty lead on the board first. Connect the cell afterwards. <a href="https://www.ivent.co.nz/product/3.7v-500mah-li-ion-prismatic-battery/39784">TAC battery and datasheet</a> · <a href="https://wiki.seeedstudio.com/XIAO_ESP32C3_Getting_Started/">Seeed battery wiring</a></li>
+        <li><strong>Test battery power.</strong> Verify counting over BLE on USB, unplug USB and repeat with only the battery connected. Use the phone to confirm that the board stays on. The XIAO’s indicator behaviour changes on battery power.</li>
+        <li><strong>Prove the inductive link separately.</strong> Supply the DFR0362 transmitter with regulated 5 V. With the receiver unattached to the electronics, align the coils and check receiver output and polarity with a meter. The product specifies 5 V output and a 2–10 mm operating gap. Repeat through a sample of the planned shell and mounting material. <a href="https://www.dfrobot.com/product-1284.html">DFRobot coil pair specifications</a></li>
+        <li><strong>Feed the board’s charger.</strong> Follow Seeed’s external 5V-input guidance. Route receiver positive through a suitably rated low-drop Schottky diode, anode at receiver positive and cathode at XIAO 5V, and connect receiver ground to GND. Keep the battery on the BAT pads. Use only the inductive input during this charging test, with the USB cable unplugged. Confirm stable voltage at the board under load, charging indication and temperature in the open fixture. <a href="https://wiki.seeedstudio.com/XIAO_ESP32C3_Getting_Started/">Seeed power pin guidance</a></li>
+      </ol>
+    </section>
+
+    <section id="placement" aria-labelledby="placement-title">
+      <h2 id="placement-title">Where it fits in a ball</h2>
+      <p>The IMU measures motion wherever it is attached. A central mount reduces the extra acceleration created by an off-centre sensor during spin. The piezo needs a surface that flexes on contact, while the short-range charging coil needs to face the dock near the shell.</p>
+<figure class="cutaway" aria-labelledby="cutaway-caption">
+        <div class="cross-section" aria-hidden="true">
+          <div class="suspension strut-a"></div><div class="suspension strut-b"></div>
+          <span class="core">A</span><span class="pickup">B</span><span class="receiver">C</span>
+          <span class="valve"></span>
+        </div>
+        <figcaption id="cutaway-caption"><strong>One possible layout for a custom ball</strong>
+          <dl><dt>A · Central pod</dt><dd>A compliant suspension holds the sensor package near the centre. A separate compartment would have to protect the cell from crushing.</dd>
+          <dt>B · Contact pickup</dt><dd>Couple the piezo to a flexible shell panel so a tap reaches the disc. Give its leads slack as the panel flexes.</dd>
+          <dt>C · Charging patch</dt><dd>Place the receiver near a marked surface patch. Align the external dock there and measure the working gap through the assembled layers.</dd></dl>
+          <small>Concept cross-section, not to scale. The dark tab represents the inflation valve.</small>
+        </figcaption>
+      </figure>
+      <div class="cards">
+        <article><h3>First fit in a foam model</h3><p>Use a split foam model with a removable core. Start with dummy masses matching the boards and cell. Weigh it, roll it in different directions, and check whether one side repeatedly settles at the bottom. Leave space for wiring, strain relief and access to the module. A foam model can establish fit and balance before anyone kicks a prototype.</p></article>
+        <article><h3>Playable-ball development</h3><p>Work with a ball maker on a purpose-built bladder and centred carrier. A flexible connection can lead to the shell sensor and charging coil. Inspect the carrier, strain relief and cell enclosure after controlled impact tests with dummy electronics. A commercial precedent is adidas’s suspended central sensor in Al Rihla. <a href="https://news.adidas.com/football/adidas-reveals-the-first-fifa-world-cup--official-match-ball-featuring-connected-ball-technology/s/cccb7187-a67c-4166-b57d-2b28f1d36fa0">adidas connected-ball design</a></p></article>
+      </div>
+      <h3>When does the hardware go in?</h3>
+      <ol>
+        <li><strong>For a tabletop model, start with two foam halves.</strong> Mark the centre on the flat faces, make a recess for a removable dummy pod, and cut shallow channels for the leads. Seat the dummy coil beneath one face and mark the matching dock position on the outside. Close the halves with a removable fabric wrap so you can reopen and adjust them.</li>
+        <li><strong>For an inflatable football, build the access into the design.</strong> The inflation valve is sized for a pump needle. A ball maker would need to fit the carrier during bladder assembly, route and seal any connections through the pressure boundary, and install the near-surface parts before the outer panels are closed. Leak-test the bladder and check wireless coupling through the actual cover before final bonding. <a href="https://us.select-sport.com/pages/select-lab">SELECT’s guide to football construction</a></li>
+      </ol>
+      <p><strong>Before play.</strong> An ordinary inflated ball has no service opening for this hardware. Keep it intact. The cell maker cautions against mechanical abuse. Only move from a bench model to a powered impact prototype after the enclosure, retention, balance, pressure integrity and charging temperature have been evaluated for repeated football impacts. <a href="https://www.ivent.co.nz/dbdocument/3436930/602535-500MAH-1-DS.pdf">TAC pack handling limits</a></p>
+    </section>
+  </main>
+  <footer><a href="../">Juggles project</a><a href="../parts/">NZ parts &amp; pricing</a></footer>
+</body>
+</html>

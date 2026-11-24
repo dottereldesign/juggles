@@ -1,0 +1,46 @@
+.gallery {
+  margin-block: 2rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2.2vw, 2rem);
+}
+.gallery > article {
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.photo, .screen-example {
+  display: grid;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  place-items: center;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+}
+.photo {cursor: zoom-in;}
+.photo:focus-visible {outline-offset: -4px;}
+.photo img {display: block; width: 100%; height: 100%; object-fit: contain; min-height: 0;}
+.white {background: white;}
+.wood {background: #e6dac8;}
+.charcoal {background: #262b29;}
+.gallery .copy {padding: clamp(1.2rem, 2vw, 1.8rem); flex: 1; display: flex; flex-direction: column;}
+.gallery h2 {font-size: clamp(2.1rem, 3.2vw, 3rem); margin: 0;}
+.gallery .links {margin-top: auto; padding-top: .65rem; display: flex; flex-wrap: wrap; gap: .4rem 1.5rem; font-weight: 650;}
+.credit, .reuse {font-size: .88rem; color: #465144;}
+.credit {margin: 0;}
+.credit a {color: inherit;}
+.reuse {margin-top: 2rem;}
+.screen-example {background: #193526;}
+.phone {
+  margin-top: .7rem; align-self: end; width: min(54%, 14rem); padding: 5% 5% 4%;
+  color: #f6faf4; background: #121712; border: 3px solid #5b695d;
+  border-bottom: 0; border-radius: 1.25rem 1.25rem 0 0; line-height: 1.2;
+}
+.phone-brand {font-weight: 800; letter-spacing: -.09em; font-size: 1.05rem;}
+.score-label {color: #e1eddc; font-size: .88rem; margin: 14% 0 .2rem;}
+.mock-score {color: var(--lime); font: italic 700 clamp(3.4rem, 7vw, 5.7rem)/.94 "Barlow Condensed",sans-serif;}
+.score-foot {margin-top: 12%; border-top: 1px solid #647364; padding-top: .4rem; display: flex; justify-content: space-between; gap: .3rem; align-items:center; font-size: .82rem;}
+@media (max-width: 740px) {
+  .gallery {grid-template-columns: 1fr;}
+  .phone {padding-top: 3%; padding-bottom: 3%;}
+}

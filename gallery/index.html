@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Parts gallery · Juggles</title>
+  <meta name="description" content="See the boards, sensors, battery and charging coils for a Bluetooth football juggling counter.">
+  <link rel="stylesheet" href="../project.css">
+  <link rel="stylesheet" href="gallery.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to parts</a>
+  <header>
+    <a class="brand" href="../" aria-label="Juggles home">juggles<b>.</b></a>
+    <nav aria-label="Project navigation">
+      <a href="../">Concepts</a>
+      <a href="../parts/">NZ prices</a>
+      <a href="./" aria-current="page">Parts gallery</a>
+      <a href="../tutorial/">Build tutorial</a>
+      <a href="../research/">Research</a>
+    </nav>
+  </header>
+  <main id="main">
+    <h1>Parts gallery</h1>
+    <p class="lead">See what goes inside the ball, what stays in the charging stand and what the player sees on their phone. Open any hardware photo for a closer look. The coil photos show Qi examples. For the tutorial, buy the <a href="https://www.dfrobot.com/product-1284.html">matched DFR0362 pair shown by DFRobot</a>.</p>
+    <div class="cards gallery">
+      <article id="controller">
+        <a class="photo white" href="images/controller.webp" aria-label="Enlarge the XIAO ESP32-C3 photo"><img src="images/controller.webp" alt="Front of a Seeed XIAO ESP32-C3 with USB-C socket at the top and contact pads running down each side." width="500" height="636"></a>
+        <div class="copy">
+          <h2>Bluetooth controller</h2>
+          <p>The XIAO ESP32-C3 reads the sensors and sends touch events to the phone over Bluetooth Low Energy. The USB-C socket at the top is for bench power and programming.</p>
+          <p class="links"><a href="../parts/#controllers">Compare controllers</a> <a href="https://wiki.seeedstudio.com/XIAO_ESP32C3_Getting_Started/">Seeed board guide</a></p>
+          <p class="credit">Photo by Seeed Studio · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
+        </div>
+      </article>
+      <article id="motion">
+        <a class="photo wood" href="images/motion.webp" aria-label="Enlarge the GY-521 motion sensor photo"><img src="images/motion.webp" alt="Blue GY-521 sensor board with a black MPU-6050 chip in the centre and SDA and SCL contacts along the left edge." width="624" height="800"></a>
+        <div class="copy">
+          <h2>Accelerometer &amp; gyroscope</h2>
+          <p>The pictured GY-521 is one six-axis option. The tutorial uses a <a href="https://epartners.co.nz/collections/accelerometers-gyroscopes-and-magnetometers/products/sp0307">BMI160 board</a> with different firmware registers. One MPU-6050 chip on the GY-521 measures both acceleration and rotation. Its accelerometer records changes in motion during contact. Its gyroscope measures how quickly the ball rotates about each of three axes.</p>
+          <p class="links"><a href="../parts/#motion">Compare motion sensors</a> <a href="https://learn.adafruit.com/mpu6050-6-dof-accelerometer-and-gyro">MPU-6050 guide</a></p>
+          <p class="credit"><a href="https://commons.wikimedia.org/wiki/File:GY-521_MPU-6050_Module_3_Axis_Gyroscope_%2B_Accelerometer_0487.jpg">Photo © Nevit Dilmen</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></p>
+        </div>
+      </article>
+      <article id="piezo">
+        <a class="photo charcoal" href="images/piezo.webp" aria-label="Enlarge the wired piezo disc photo"><img src="images/piezo.webp" alt="Two wires soldered to a passive piezo disc, one on the central ceramic face and one on the outer metal ring." width="1000" height="750" loading="lazy"></a>
+        <div class="copy">
+          <h2>Piezo contact sensor</h2>
+          <p>The inner ceramic layer bends with its metal backing when the shell flexes. The resulting electrical pulse gives the controller a second signal for timing a touch.</p>
+          <p class="links"><a href="../parts/#piezo">Compare piezo sensors</a> <a href="https://surplustronics.co.nz/products/9335-piezo-disc-element-leads">Wired disc example</a></p>
+          <p class="credit"><a href="https://commons.wikimedia.org/wiki/File:2007-07-24_Piezoelectric_buzzer.jpg">Photo by Gophi</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></p>
+        </div>
+      </article>
+      <article id="battery">
+        <a class="photo charcoal" href="images/battery.webp" aria-label="Enlarge the rechargeable cell photo"><img src="images/battery.webp" alt="Silver 3.7 V, 500 mAh flat lithium polymer cell with two leads ending at a white two-pin plug." width="800" height="600" loading="lazy"></a>
+        <div class="copy">
+          <h2>Rechargeable cell</h2>
+          <p>This 3.7 V, 500 mAh lithium-polymer pouch shows how a small single-cell pack connects. Check the chosen pack’s protection, plug polarity and permitted charge current before pairing it with a charger.</p>
+          <p class="links"><a href="../parts/#battery">Compare batteries</a> <a href="https://learn.adafruit.com/adabox001/lithium-polymer-battery">Cell guide</a></p>
+          <p class="credit"><a href="https://learn.adafruit.com/assets/42240">Photo by Carter Nelson</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></p>
+        </div>
+      </article>
+      <article id="transmitter">
+        <a class="photo white" href="images/transmitter.webp" aria-label="Enlarge the wireless transmitter photo"><img src="images/transmitter.webp" alt="Seeed Qi transmitter board with its flat round coil connected by a short pair of wires." width="700" height="525" loading="lazy"></a>
+        <div class="copy">
+          <h2>Transmitter in the stand</h2>
+          <p>The stand powers the transmitter board. Its coil creates the changing magnetic field that transfers energy across the gap between the stand and the ball.</p>
+          <p class="links"><a href="../parts/#wireless">Compare charging coils</a> <a href="https://wiki.seeedstudio.com/Qi_Wireless_Charger_Transmitter/">Seeed transmitter guide</a></p>
+          <p class="credit">Photo by Seeed Studio · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
+        </div>
+      </article>
+      <article id="receiver">
+        <a class="photo charcoal" href="images/receiver.webp" aria-label="Enlarge the wireless receiver photo"><img src="images/receiver.webp" alt="Flat rectangular copper Qi receiver coil and its electronics laid against the back of a phone to demonstrate placement." width="800" height="600" loading="lazy"></a>
+        <div class="copy">
+          <h2>Receiver inside the ball</h2>
+          <p>This flat Qi receiver is shown on a phone. The equivalent part sits close to the outer shell in the proposed ball. Its electronics convert power from the coil into a DC supply for the charger.</p>
+          <p class="links"><a href="../parts/#wireless">Compare receiver options</a> <a href="https://learn.adafruit.com/qi-charging-phone-case-and-book">Receiver example</a></p>
+          <p class="credit"><a href="https://learn.adafruit.com/assets/21393">Photo by Becky Stern</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></p>
+        </div>
+      </article>
+      <article id="charger">
+        <a class="photo charcoal" href="images/charger.webp" aria-label="Enlarge the LiPo charge controller photo"><img src="images/charger.webp" alt="Front and back of an Adafruit MicroLipo board showing its charge-rate switch and two-pin battery socket." width="1000" height="354" loading="lazy"></a>
+        <div class="copy">
+          <h2>Charge controller</h2>
+          <p>A single-cell charger controls battery voltage and charge current. This MicroLipo example has a battery socket and a current selector. The XIAO already has a charge controller, so a separate board is only needed for controller variants without one.</p>
+          <p class="links"><a href="../parts/#charger">Compare charge controllers</a> <a href="https://learn.adafruit.com/adafruit-microlipo-and-minilipo-battery-chargers/microlipo-v2-pinout">MicroLipo pinout</a></p>
+          <p class="credit"><a href="https://learn.adafruit.com/assets/116630">Photo by Liz Clark</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></p>
+        </div>
+      </article>
+      <article id="app">
+        <div class="screen-example" aria-label="Illustrative counter screen with 18 touches this run and a personal best of 26">
+          <div class="phone" aria-hidden="true"><div class="phone-brand">juggles.</div><div class="score-label">Current streak</div><div class="mock-score">18</div><div class="score-foot"><span>Personal best</span><strong>26</strong></div></div>
+        </div>
+        <div class="copy">
+          <h2>Counter app</h2>
+          <p>This mock-up shows how the player could follow a run. The app would display live touches from the controller, save personal records and submit completed streaks to a leaderboard.</p>
+          <p class="links"><a href="../parts/#app">Software costs</a> <a href="../tutorial/">Prototype tutorial</a></p>
+        </div>
+      </article>
+    </div>
+    <p class="reuse">The photographs are resized WebP copies. Each retains its credited licence.</p>
+  </main>
+  <footer><a href="../">Juggles project</a><a href="../parts/">NZ parts &amp; pricing</a></footer>
+</body>
+</html>
