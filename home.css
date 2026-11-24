@@ -1,0 +1,41 @@
+* { box-sizing: border-box; }
+body { margin: 0; background: #080809; color: #f2f2f3; font: 1rem/1.55 system-ui, sans-serif; }
+.home-hero {
+  width: min(96%, 100rem);
+  margin: clamp(.75rem, 2vw, 2rem) auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 20rem);
+  grid-template-areas: "stage inspector" "controls inspector" "help inspector";
+  overflow: hidden;
+  border: 1px solid #303033;
+  border-radius: .7rem;
+  background: #101012;
+}
+.assembly-viewport {
+  grid-area: stage;
+  min-height: clamp(23rem, 61svh, 47rem);
+  background: radial-gradient(ellipse at center, #28282c, #141416 55%, #0c0c0d);
+}
+.assembly-inspector { grid-area: inspector; background: #171719; border-color: #343437; }
+.assembly-inspector label, .assembly-inspector h4 { color: #bababe; }
+.assembly-inspector select { background: #101012; border-color: #626268; min-height: 44px; }
+.assembly-inspector p, .assembly-controls button { color: #e2e2e6; }
+.assembly-controls { grid-area: controls; border-color: #343437; }
+.assembly-controls button { min-height: 44px; border-color: #67676d; }
+.assembly-help { grid-area: help; color: #bdbdc2; }
+.assembly-slider input { height: 32px; }
+@media (max-width: 740px) {
+  .home-hero {
+    width: 100%;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "stage" "controls" "help" "inspector";
+  }
+  .assembly-viewport { min-height: clamp(14rem, 64vw, 24rem); }
+  .assembly-controls { flex-wrap: nowrap; gap: .8rem; }
+  .assembly-controls button { flex: none; }
+  .assembly-slider { min-width: 0; }
+  .assembly-inspector { padding-bottom: 2rem; }
+}
