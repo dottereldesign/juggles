@@ -10,16 +10,19 @@
   <meta property="og:description" content="NZ prices, direct shop links and a worked electronics budget for one prototype.">
   <meta property="og:image" content="https://dottereldesign.github.io/juggles/parts/football.jpg">
   <link rel="stylesheet" href="guide.css">
-  <link rel="preload" href="BarlowCondensed-BoldItalic.ttf" as="font" type="font/ttf" crossorigin>
   <script src="guide.js" defer></script>
 <link rel="stylesheet" href="../header.css">
+  <script defer src="../header.js"></script>
 </head>
 <body>
   <a href="#compare" class="skip">Skip to parts comparison</a>
   <header class="project-header">
     <div class="header-inner">
       <a class="wordmark" href="../" aria-label="Juggles home">juggles<b>.</b></a>
-      <nav aria-label="Project navigation">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="project-nav" aria-label="Open navigation" hidden>
+        <span aria-hidden="true"></span>
+      </button>
+      <nav id="project-nav" aria-label="Project navigation">
         <a href="../">Home</a>
         <a href="../parts/" aria-current="page">NZ prices</a>
         <a href="../gallery/">Parts gallery</a>

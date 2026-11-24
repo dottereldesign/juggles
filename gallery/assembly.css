@@ -2,7 +2,7 @@
 .assembly-heading {display:flex; align-items:end; justify-content:space-between; gap:2rem; padding:clamp(1.2rem,3vw,2.6rem); background:#141f18; border-bottom:1px solid #384a3c;}
 .assembly-heading h2 {font-size:clamp(3.2rem,6vw,6rem); line-height:.92; margin:.35rem 0 0; color:#f7f8f0;}
 .assembly-heading h2 span {color:#c8f568;}
-.assembly-kicker,.assembly-inspector label,.assembly-inspector h4 {font:650 .8rem/1.5 ui-monospace,Consolas,monospace; letter-spacing:.07em; text-transform:uppercase;}
+.assembly-kicker,.assembly-inspector label,.assembly-inspector h4 {font:650 .8rem/1.5 var(--site-font); letter-spacing:.07em; text-transform:uppercase;}
 .assembly-kicker {color:#c8f568;margin:0;}
 .assembly-heading > p {color:#d4dfcc;max-width:34ch;margin:0;}
 .assembly-bench {display:grid;grid-template-columns:minmax(0,1fr) minmax(15rem,24%);}
@@ -15,7 +15,7 @@
 .assembly-marker {pointer-events:none;position:absolute;left:0;top:0;width:13px;height:13px;border:2px solid #d6ff81;border-radius:50%;background:#17211644;box-shadow:0 0 0 3px #18281777;transform:translate(-50%,-50%);}
 .assembly-inspector {background:#1c2921;border-left:1px solid #405043;padding:clamp(1rem,1.7vw,1.6rem);align-self:stretch;}
 .assembly-inspector label,.assembly-inspector h4 {color:#c3de9f;display:block;margin:0 0 .4rem;}
-.assembly-inspector select {color-scheme:dark;max-width:100%;width:100%;border:1px solid #647664;border-radius:.3rem;background:#131f17;color:white;padding:.65rem .45rem;font:600 .94rem system-ui;}
+.assembly-inspector select {color-scheme:dark;max-width:100%;width:100%;border:1px solid #647664;border-radius:.3rem;background:#131f17;color:white;padding:.65rem .45rem;font:600 .94rem var(--site-font);}
 .assembly-inspector h3 {margin:1.6rem 0 .5rem;font-size:1.4rem;letter-spacing:-.035em;}
 .assembly-inspector h4 {margin:1.4rem 0 .3rem;}
 .assembly-inspector p {margin:0;color:#e1e9db;font-size:.97rem;}
@@ -24,7 +24,7 @@
 .assembly-slider label {font-weight:650;font-size:.96rem;}
 .assembly-slider div {display:flex;align-items:center;gap:.65rem;font-size:.88rem;}
 .assembly-slider input {flex:1; min-width:2rem; accent-color:#c8f568;cursor:pointer;}
-.assembly-controls button {border:1px solid #82987e;background:transparent;color:#edf3e7;padding:.5rem .95rem;border-radius:.3rem;cursor:pointer;font:600 .9rem system-ui;}
+.assembly-controls button {border:1px solid #82987e;background:transparent;color:#edf3e7;padding:.5rem .95rem;border-radius:.3rem;cursor:pointer;font:600 .9rem var(--site-font);}
 .assembly-help {margin:0;padding:0 clamp(1rem,2.5vw,2rem) 1.1rem;color:#c4d4c2;font-size:.89rem;}
 @media(max-width:740px){
   .assembly-heading {align-items:start;flex-direction:column;gap:.8rem;}

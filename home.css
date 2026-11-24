@@ -1,5 +1,5 @@
 * { box-sizing: border-box; }
-body { margin: 0; background: #080809; color: #f2f2f3; font: 1rem/1.55 system-ui, sans-serif; }
+body { margin: 0; background: #080809; color: #f2f2f3; font: 1rem/1.55 var(--site-font); }
 .home-hero {
   width: min(100%, 100rem);
   margin: 0 auto;
@@ -51,7 +51,7 @@ body { margin: 0; background: #080809; color: #f2f2f3; font: 1rem/1.55 system-ui
   color: #cbcbce;
 }
 .assembly-slider { width: 100%; text-align: center; }
-.assembly-slider label { display: block; font: 600 .73rem/1.2 system-ui; }
+.assembly-slider label { display: block; font: 600 .73rem/1.2 var(--site-font); }
 .assembly-slider div { font-size: .73rem; }
 .assembly-slider input { height: 32px; }
 @media (max-width: 740px) {

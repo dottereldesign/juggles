@@ -1,20 +1,12 @@
-@font-face {
-  font-family: "Barlow Condensed";
-  src: url("BarlowCondensed-BoldItalic.ttf") format("truetype");
-  font-style: italic;
-  font-weight: 700;
-  font-display: swap;
-}
 :root {
   --ink: #151815;
   --muted: #525a52;
   --paper: #f7f8f4;
   --line: #cdd1c8;
   --lime: #c8f568;
-  --mono: ui-monospace, Consolas, "Liberation Mono", monospace;
   color: var(--ink);
   background: var(--paper);
-  font: 100%/1.5 system-ui, sans-serif;
+  font: 100%/1.5 var(--site-font);
 }
 * { box-sizing: border-box; }
 body, h1, h2, h3, p, dl, dd, figure, ul { margin: 0; }
@@ -34,12 +26,12 @@ footer .shell { display: flex; align-items: center; justify-content: space-betwe
 .hero figure { position: absolute; z-index: -1; inset: 0 0 0 38%; }
 .hero figure img { height: 100%; width: 100%; object-fit: cover; object-position: center; }
 .hero figure::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg,#141814 0%,rgba(20,24,20,.85) 6%,transparent 28%), linear-gradient(0deg,rgba(13,18,12,.4),transparent 30%); }
-.hero figcaption { position: absolute; bottom: 1rem; right: 4vw; z-index: 1; font: .77rem var(--mono); color: #e6e9df; background: #182018cf; padding: .25rem .45rem; }
+.hero figcaption { position: absolute; bottom: 1rem; right: 4vw; z-index: 1; font: .77rem var(--site-font); color: #e6e9df; background: #182018cf; padding: .25rem .45rem; }
 .intro { padding-block: clamp(3rem,5.5vw,5.3rem); }
-.eyebrow { display: flex; align-items: center; gap: .8rem; font: 600 .82rem/1.3 var(--mono); letter-spacing: .09em; text-transform: uppercase; }
+.eyebrow { display: flex; align-items: center; gap: .8rem; font: 600 .82rem/1.3 var(--site-font); letter-spacing: .09em; text-transform: uppercase; }
 .eyebrow::before { content: ""; width: 2rem; height: 3px; background: currentColor; }
 .hero .eyebrow { color: var(--lime); }
-h1, h2.display { font-family: "Barlow Condensed","Arial Narrow",sans-serif; font-weight: 700; font-style: italic; text-transform: uppercase; }
+h1, h2.display { font-family: var(--site-font); font-weight: 700; font-style: italic; text-transform: uppercase; }
 h1 { font-size: clamp(4.1rem,7.1vw,7.6rem); line-height: .92; letter-spacing: -.023em; margin: 1.15rem 0; }
 h1 em { color: var(--lime); font-style: inherit; }
 .intro .lead { max-width: min(39vw,32rem); font-size: clamp(1rem,1.25vw,1.19rem); color: #dae0d5; line-height: 1.55; }
@@ -48,7 +40,7 @@ h1 em { color: var(--lime); font-style: inherit; }
 .cta:hover { background: #ddffa4; }
 .text-link { color: #f2f5ee; font-weight: 600; }
 .stamp { background: #e7ebdf; border-block: 1px solid #d3d8ca; color: #384239; }
-.stamp .shell { min-height: 2.65rem; display: flex; align-items: center; gap: 1.1rem; flex-wrap: wrap; padding-block: .55rem; font: .83rem/1.4 var(--mono); }
+.stamp .shell { min-height: 2.65rem; display: flex; align-items: center; gap: 1.1rem; flex-wrap: wrap; padding-block: .55rem; font: .83rem/1.4 var(--site-font); }
 .stamp span + span { padding-left: 1.1rem; border-left: 1px solid #97a18e; }
 .layout { display: grid; grid-template-columns: minmax(0,1fr) clamp(17.2rem,32%,26rem); gap: clamp(1.7rem,5vw,5rem); padding-block: clamp(2.5rem,5vw,4.75rem); align-items: start; }
 h2.display { font-size: clamp(2.7rem,4.1vw,4.6rem); line-height: .98; letter-spacing: -.025em; }
@@ -63,12 +55,12 @@ summary { cursor: pointer; list-style: none; }
 summary::-webkit-details-marker { display: none; }
 .part summary { display: flex; gap: 1rem; align-items: center; padding: 1.05rem .1rem; }
 .part summary:hover .part-title { text-decoration: underline; }
-.part-code { flex: 0 0 2.7rem; height: 2.7rem; border: 1px solid #aeb8a9; border-radius: .3rem; display: grid; place-items: center; font: 650 .8rem var(--mono); letter-spacing: .035em; color: #44513e; }
+.part-code { flex: 0 0 2.7rem; height: 2.7rem; border: 1px solid #aeb8a9; border-radius: .3rem; display: grid; place-items: center; font: 650 .8rem var(--site-font); letter-spacing: .035em; color: #44513e; }
 .part[open] .part-code { background: var(--lime); border-color: #9cca57; color: #17200f; }
 .part-title { font-weight: 720; font-size: clamp(1.03rem,1.48vw,1.35rem); letter-spacing: -.026em; }
 .part-heading { display: grid; gap: .13rem; }
 .offer-floor { color: #475340; font-size: .9rem; }
-.offer-count { color: var(--muted); font: .8rem var(--mono); margin-left: auto; white-space: nowrap; }
+.offer-count { color: var(--muted); font: .8rem var(--site-font); margin-left: auto; white-space: nowrap; }
 .indicator { width: .63rem; height: .63rem; border: solid #424b40; border-width: 0 1.7px 1.7px 0; transform: rotate(45deg); margin: 0 .4rem .24rem .3rem; flex-shrink: 0; }
 details[open] > summary .indicator { transform: rotate(225deg); margin-bottom: -.26rem; }
 .part-copy { color: var(--muted); margin: -.05rem 0 1rem; max-width: 46rem; }
@@ -77,21 +69,21 @@ details[open] > summary .indicator { transform: rotate(225deg); margin-bottom: -
 .offer + .offer { border-top: 1px solid #dee2d9; }
 .offer-line { display: flex; gap: .9rem; justify-content: space-between; align-items: baseline; }
 .offer-name { font-weight: 660; }
-.price { white-space: nowrap; font: 650 1.05rem var(--mono); }
-.origin { font: .79rem/1.5 var(--mono); color: #4b5846; margin-bottom: .2rem; }
+.price { white-space: nowrap; font: 650 1.05rem var(--site-font); }
+.origin { font: .79rem/1.5 var(--site-font); color: #4b5846; margin-bottom: .2rem; }
 .terms, .freight { font-size: .9rem; color: var(--muted); }
 .terms { margin-top: .22rem; }
 .freight a { white-space: nowrap; }
 .aside { display: grid; gap: 1rem; }
 .budget { background: #202820; color: #eff2e9; border-radius: .52rem; padding: clamp(1.25rem,2.2vw,2.15rem); scroll-margin-top: 1rem; }
 .budget .eyebrow { color: var(--lime); }
-.money { color: var(--lime); font: italic 700 clamp(3.65rem,6vw,5.55rem)/1.07 "Barlow Condensed",sans-serif; letter-spacing: -.035em; margin: .5rem 0 0; }
-.money small { font: 600 1rem var(--mono); letter-spacing: 0; vertical-align: middle; padding-right: .42rem; }
+.money { color: var(--lime); font: italic 700 clamp(3.65rem,6vw,5.55rem)/1.07 var(--site-font); letter-spacing: -.035em; margin: .5rem 0 0; }
+.money small { font: 600 1rem var(--site-font); letter-spacing: 0; vertical-align: middle; padding-right: .42rem; }
 .budget .scope { color: #d4ddce; }
 .receipt { margin: 1.3rem 0 1rem; }
 .receipt div { display: flex; justify-content: space-between; align-items: baseline; gap: .75rem; padding: .52rem 0; border-bottom: 1px solid #434d42; }
 .receipt dt { font-size: .93rem; }
-.receipt dd { font-family: var(--mono); }
+.receipt dd { font-family: var(--site-font); }
 .fine { font-size: .86rem; color: #cdd6c9; line-height: 1.5; }
 .basket-notes { margin: .8rem 0 0; }
 .basket-notes summary { text-decoration: underline; text-underline-offset: .18em; color: var(--lime); }

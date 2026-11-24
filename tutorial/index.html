@@ -7,13 +7,17 @@
   <meta name="description" content="Wire the Juggles prototype, record a tap, test Bluetooth and wireless charging, and plan how the electronics could fit inside a football.">
   <link rel="stylesheet" href="../project.css">
 <link rel="stylesheet" href="../header.css">
+  <script defer src="../header.js"></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to build tutorial</a>
   <header class="project-header">
     <div class="header-inner">
       <a class="wordmark" href="../" aria-label="Juggles home">juggles<b>.</b></a>
-      <nav aria-label="Project navigation">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="project-nav" aria-label="Open navigation" hidden>
+        <span aria-hidden="true"></span>
+      </button>
+      <nav id="project-nav" aria-label="Project navigation">
         <a href="../">Home</a>
         <a href="../parts/">NZ prices</a>
         <a href="../gallery/">Parts gallery</a>

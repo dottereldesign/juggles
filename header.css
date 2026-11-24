@@ -1,3 +1,19 @@
+@font-face {
+  font-family: Inter;
+  src: url("./fonts/inter-normal.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: Inter;
+  src: url("./fonts/inter-italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+}
+:root { --site-font: Inter, system-ui, sans-serif; }
+body, button, input, select, textarea, code, pre, kbd { font-family: var(--site-font); }
 /* Shared navigation for every Juggles page, including the concept gallery. */
 html { scrollbar-gutter: stable; }
 body > .project-header {
@@ -9,7 +25,7 @@ body > .project-header {
   border-bottom: 1px solid #343437;
   background: #101012;
   color: #f6faf3;
-  font: 400 1rem/1.5 system-ui, sans-serif;
+  font: 400 1rem/1.5 var(--site-font);
 }
 .project-header .header-inner {
   width: min(91%, 82rem);
@@ -22,18 +38,65 @@ body > .project-header {
 }
 .project-header .wordmark {
   color: #fff;
-  font: 850 1.85rem/1 system-ui, sans-serif;
+  font: 850 1.85rem/1 var(--site-font);
   letter-spacing: -.09em;
   text-decoration: none;
 }
 .project-header .wordmark b { color: #c8f568; font-weight: inherit; }
 .project-header nav { display: flex; flex-wrap: wrap; gap: .4rem clamp(.9rem, 2.3vw, 2rem); align-items: center; }
-.project-header nav a { color: #f4f6f1; font: 600 .9375rem/1.5 system-ui,sans-serif; padding: .35rem 0; text-decoration: none; }
+.project-header nav a { color: #f4f6f1; font: 600 .9375rem/1.5 var(--site-font); padding: .35rem 0; text-decoration: none; }
 .project-header nav a[aria-current="page"] { color: #c8f568; }
 .project-header nav a:hover { text-decoration: underline; text-underline-offset: .25em; }
 .project-header a:focus-visible { outline: 2px solid #c8f568; outline-offset: 3px; }
-@media(max-width: 720px) {
-  .project-header .header-inner { flex-direction: column; align-items: flex-start; gap: .5rem; padding-block: .9rem; }
-  .project-header nav { gap: .15rem .92rem; }
-  .project-header nav a { font-size: .875rem; }
+.project-header { position: relative; z-index: 5; }
+.nav-toggle { display: none; }
+@media (max-width: 1180px), (pointer: coarse) and (max-width: 1366px) {
+  .project-header .header-inner { flex-wrap: wrap; gap: .25rem 1rem; padding-block: .45rem; }
+  .project-header .nav-toggle:not([hidden]) {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    padding: 0;
+    border: 0;
+    border-radius: .7rem;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+  }
+  .nav-toggle:hover, .project-header .nav-toggle[aria-expanded="true"] { background: #252528; }
+  .nav-toggle:focus-visible { outline: 2px solid #c8f568; outline-offset: 2px; }
+  .nav-toggle span, .nav-toggle span::before, .nav-toggle span::after {
+    display: block; width: 22px; height: 2px; border-radius: 2px; background: currentColor;
+  }
+  .nav-toggle span { position: relative; }
+  .nav-toggle span::before, .nav-toggle span::after { content: ""; position: absolute; left: 0; }
+  .nav-toggle span::before { transform: translateY(-7px); }
+  .nav-toggle span::after { transform: translateY(7px); }
+  .nav-toggle[aria-expanded="true"] span { background: transparent; }
+  .nav-toggle[aria-expanded="true"] span::before { transform: rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span::after { transform: rotate(-45deg); }
+  .project-header nav { width: 100%; }
+  .nav-toggle:not([hidden]) + nav {
+    position: absolute;
+    top: calc(100% + .35rem);
+    right: 4.5%;
+    width: min(91%, 20rem);
+    display: grid;
+    gap: 2px;
+    padding: .45rem;
+    border: 1px solid #343438;
+    border-radius: .85rem;
+    background: #19191c;
+    box-shadow: 0 .9rem 2rem #0005;
+    max-height: calc(100dvh - 5rem);
+    overflow-y: auto;
+  }
+  .nav-toggle:not([hidden])[aria-expanded="false"] + nav { display: none; }
+  .project-header nav a { padding: .72rem .9rem; border-radius: .46rem; }
+  .project-header nav a[aria-current="page"] { background: #252823; }
+  .project-header nav a:hover { background: #303032; text-decoration: none; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .nav-toggle span::before, .nav-toggle span::after { transition: transform 140ms ease; }
 }
