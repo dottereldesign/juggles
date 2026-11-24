@@ -5,13 +5,34 @@ body { margin: 0; background: #080809; color: #f2f2f3; font: 1rem/1.55 system-ui
   margin: 0 auto;
   padding-bottom: calc(6rem + env(safe-area-inset-bottom));
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(16rem, 20rem);
+  grid-template-columns: minmax(0, 1fr);
 }
 .assembly-viewport {
   min-height: clamp(23rem, 74svh, 53rem);
   background: radial-gradient(ellipse at center, #242427, #111113 56%, #080809 73%);
 }
-.assembly-inspector { align-self: center; background: transparent; border: 0; }
+.assembly-loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  color: #a3a3a9;
+  font-size: .8rem;
+}
+.assembly-inspector {
+  width: min(92%, 68rem);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(12rem, 16rem) minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
+  align-items: start;
+  column-gap: clamp(2rem, 6vw, 6rem);
+  background: transparent;
+  border: 0;
+}
+.assembly-inspector select { grid-column: 1; }
+#assembly-description { grid-area: 1 / 2 / 3 / 3; }
+.assembly-inspector h3 { margin-top: 0; }
 .assembly-inspector label, .assembly-inspector h4 { color: #bababe; }
 .assembly-inspector select { background: #101012; border-color: #626268; min-height: 44px; }
 .assembly-inspector p { color: #e2e2e6; }
@@ -34,6 +55,7 @@ body { margin: 0; background: #080809; color: #f2f2f3; font: 1rem/1.55 system-ui
 .assembly-slider div { font-size: .73rem; }
 .assembly-slider input { height: 32px; }
 @media (max-width: 740px) {
-  .home-hero { grid-template-columns: minmax(0, 1fr); }
+  .assembly-inspector { display: block; }
+  .assembly-inspector h3 { margin-top: 1rem; }
   .assembly-viewport { min-height: clamp(14rem, 64vw, 24rem); }
 }

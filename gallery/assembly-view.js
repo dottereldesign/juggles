@@ -4,7 +4,7 @@ const spacing = document.querySelector("#assembly-spread");
 const reset = document.querySelector("#assembly-reset");
 const help = document.querySelector("#assembly-help");
 const marker = stage.querySelector(".assembly-marker");
-const poster = stage.querySelector("img");
+const placeholder = stage.querySelector(".assembly-poster, .assembly-loading");
 const details = {
   seam: ["Paper masking tape", "A removable strip holds the empty-fit prototype closed while you turn it by hand. Fold the end back on itself to make a pull tab.", "Bridges the outer edges of both foam covers. Peel it back before lifting out the card carrier."],
   "shell-left": ["Left foam cover", "One half of a 100 mm craft sphere encloses the electronics. A shallow seat at the pole brings the charging receiver close to the outside dock.", "Removable tape joins its rim to the other half. The receiver sits just inside the marked charging face."],
@@ -60,6 +60,7 @@ async function initialise() {
   canvas.tabIndex = 0;
   canvas.setAttribute("aria-label","Rotatable exploded foam prototype");
   if (help) canvas.setAttribute("aria-describedby","assembly-help");
+  canvas.hidden = true;
   stage.append(canvas);
   const orbit = new OrbitControls(camera,canvas);
   orbit.enablePan = false; orbit.minZoom = .5; orbit.maxZoom = 7;
@@ -154,20 +155,24 @@ async function initialise() {
   });
   reset?.addEventListener("click",()=>{spacing.value="100";setExplosion(1);frame();inspect("shell-left");});
   renderer.domElement.addEventListener("webglcontextlost",e=>{
-    e.preventDefault();poster.hidden=false;canvas.hidden=true;if (marker) marker.hidden=true;
+    e.preventDefault();placeholder.hidden=false;canvas.hidden=true;if (marker) marker.hidden=true;
     if (reset) reset.disabled=true;spacing.disabled=true;
   });
   canvas.addEventListener("webglcontextrestored",()=>{
-    poster.hidden=true;canvas.hidden=false;if (reset) reset.disabled=false;spacing.disabled=false;draw();
+    placeholder.hidden=true;canvas.hidden=false;if (reset) reset.disabled=false;spacing.disabled=false;draw();
   });
   graphics={mark};
-  poster.hidden=true;if (reset) reset.disabled=false;spacing.disabled=false;
   mark(picker.value);
+  canvas.hidden=false;
+  placeholder.hidden=true;
+  if (reset) reset.disabled=false;
+  spacing.disabled=false;
 }
 function start() {
   initialise().catch(error=>{
     const canvas=stage.querySelector("canvas"); if(canvas)canvas.hidden=true;
-    poster.hidden=false;if (marker) marker.hidden=true;
+    placeholder.hidden=false;if (marker) marker.hidden=true;
+    if (placeholder.matches(".assembly-loading")) placeholder.textContent="3D view unavailable. Explore the parts below.";
     if (help) help.textContent="Showing the exploded reference image. Use the part list to explore each connection.";
     console.warn("Prototype assembly:",error);
   });
