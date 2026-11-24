@@ -57,6 +57,10 @@ function roundedBoard(T, width, depth, radius, holes = []) {
 function board(T, group, width, depth, thickness, radius, holes, front, back, edge) {
   const shape = roundedBoard(T, width, depth, radius, holes);
   const solid = new T.ExtrudeGeometry(shape, {depth: thickness, bevelEnabled: false, curveSegments: 18});
+  // The face meshes supply both caps. Exclude the extrusion's coincident
+  // triangles so mobile depth buffers cannot let the FR-4 colour bleed through.
+  const walls = solid.groups.find(group => group.materialIndex === 1);
+  solid.setDrawRange(walls.start, walls.count);
   solid.rotateX(-Math.PI / 2);
   place(T, group, solid, edge);
   for (const [material, y] of [[front, thickness + .008], [back, -.008]]) {
