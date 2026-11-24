@@ -59,7 +59,7 @@ async function initialise() {
   const canvas = renderer.domElement;
   canvas.tabIndex = 0;
   canvas.setAttribute("aria-label","Rotatable exploded foam prototype");
-  canvas.setAttribute("aria-describedby","assembly-help");
+  if (help) canvas.setAttribute("aria-describedby","assembly-help");
   stage.append(canvas);
   const orbit = new OrbitControls(camera,canvas);
   orbit.enablePan = false; orbit.minZoom = .5; orbit.maxZoom = 7;
@@ -67,19 +67,24 @@ async function initialise() {
   const pickRoots = Object.values(parts);
   const ids = new Map(Object.entries(parts).map(([id,part]) => [part,id]));
   let selectedPart, anchor, width, height;
+  const outline = marker ? null : (await import("./selection-outline.js")).createOutline(T, renderer);
   const projected = new T.Vector3();
   function draw() {
     if (!width || !height || renderer.getContext().isContextLost()) return;
     renderer.render(scene,camera);
     if (!selectedPart) return;
+    if (outline) { outline.draw(scene, camera); return; }
     projected.copy(anchor); selectedPart.localToWorld(projected); projected.project(camera);
     marker.hidden = Math.abs(projected.x) > .97 || Math.abs(projected.y) > .94;
     marker.style.left = (projected.x*.5+.5)*100+"%";
     marker.style.top = (.5-projected.y*.5)*100+"%";
   }
   function mark(id, point) {
+    if (outline && selectedPart === parts[id]) return;
     selectedPart = parts[id];
+    outline?.select(selectedPart);
     if (!selectedPart) return;
+    if (outline) { draw(); return; }
     anchor = (point || new T.Box3().setFromObject(selectedPart).getCenter(new T.Vector3())).clone();
     selectedPart.worldToLocal(anchor);
     draw();
@@ -109,7 +114,7 @@ async function initialise() {
     const half=Math.max(extent(up),extent(right)/aspect)*.53;
     camera.left=-half*aspect;camera.right=half*aspect;
     camera.top=half;camera.bottom=-half;
-    camera.updateProjectionMatrix();renderer.setSize(width,height,false);draw();
+    camera.updateProjectionMatrix();renderer.setSize(width,height,false);outline?.resize();draw();
   }
   frame(); resize();
   new ResizeObserver(resize).observe(stage);
@@ -144,26 +149,26 @@ async function initialise() {
   });
   spacing.addEventListener("input",()=>{
     setExplosion(Number(spacing.value)/100);
-    if (picker.value === "seam" || picker.value === "harness") mark(picker.value);
+    if (marker && (picker.value === "seam" || picker.value === "harness")) mark(picker.value);
     else draw();
   });
-  reset.addEventListener("click",()=>{spacing.value="100";setExplosion(1);frame();inspect("shell-left");});
+  reset?.addEventListener("click",()=>{spacing.value="100";setExplosion(1);frame();inspect("shell-left");});
   renderer.domElement.addEventListener("webglcontextlost",e=>{
-    e.preventDefault();poster.hidden=false;canvas.hidden=true;marker.hidden=true;
-    reset.disabled=true;spacing.disabled=true;
+    e.preventDefault();poster.hidden=false;canvas.hidden=true;if (marker) marker.hidden=true;
+    if (reset) reset.disabled=true;spacing.disabled=true;
   });
   canvas.addEventListener("webglcontextrestored",()=>{
-    poster.hidden=true;canvas.hidden=false;reset.disabled=false;spacing.disabled=false;draw();
+    poster.hidden=true;canvas.hidden=false;if (reset) reset.disabled=false;spacing.disabled=false;draw();
   });
   graphics={mark};
-  poster.hidden=true;reset.disabled=false;spacing.disabled=false;
+  poster.hidden=true;if (reset) reset.disabled=false;spacing.disabled=false;
   mark(picker.value);
 }
 function start() {
   initialise().catch(error=>{
     const canvas=stage.querySelector("canvas"); if(canvas)canvas.hidden=true;
-    poster.hidden=false;marker.hidden=true;
-    help.textContent="Showing the exploded reference image. Use the part list to explore each connection.";
+    poster.hidden=false;if (marker) marker.hidden=true;
+    if (help) help.textContent="Showing the exploded reference image. Use the part list to explore each connection.";
     console.warn("Prototype assembly:",error);
   });
 }

@@ -27,7 +27,6 @@
   <main class="home-hero" aria-label="Interactive Juggles football">
         <div class="assembly-viewport" id="assembly-stage">
           <img class="assembly-poster" src="./gallery/images/home-assembly.webp" alt="Exploded prototype showing two marked foam shell halves, the card carrier, sensors, battery and external charging dock." fetchpriority="high">
-          <div class="assembly-marker" hidden aria-hidden="true"></div>
         </div>
         <aside class="assembly-inspector" aria-label="Part information">
           <label for="assembly-part">Inspect a part</label>
@@ -52,9 +51,7 @@
         </aside>
       <div class="assembly-controls">
         <div class="assembly-slider"><label for="assembly-spread">Layer spacing</label><div><span>Closed</span><input type="range" id="assembly-spread" min="0" max="100" value="100" disabled><span>Exploded</span></div></div>
-        <button type="button" id="assembly-reset" disabled>Reset view</button>
       </div>
-      <p class="assembly-help" id="assembly-help">Drag to rotate. Scroll or pinch to zoom. Use the part list to inspect any hidden layer.</p>
   </main>
 </body>
 </html>
